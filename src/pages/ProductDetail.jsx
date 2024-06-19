@@ -1,10 +1,24 @@
-import React from "react";
-import { useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useLocation, useParams } from "react-router-dom";
+import { BASE_URL } from "../utils/baseUrl";
 
 const ProductDetail = () => {
-    const location= useLocation();
-    const product = location.state;
-    console.log(product);
+  // const location= useLocation();
+  // const product = location.state;
+  // console.log(product);
+  const [product, setProduct] = useState({});
+
+  const param = useParams();
+  async function fetchProduct() {
+    const response = await fetch(BASE_URL + "products/" + param.id);
+    const data = await response.json();
+    setProduct(data);
+    console.log(data);
+  }
+
+  useEffect(() => {
+    fetchProduct();
+  }, []);
   return (
     <div className="bg-gray-100 dark:bg-gray-800 py-8">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -13,7 +27,7 @@ const ProductDetail = () => {
             <div className="h-[460px] rounded-lg bg-gray-300 dark:bg-gray-700 mb-4">
               <img
                 className="w-full h-full object-cover"
-                src={product.images[0]}
+                // src={product?.images[0]}
                 alt="Product Image"
               />
             </div>
@@ -32,7 +46,7 @@ const ProductDetail = () => {
           </div>
           <div className="md:flex-1 px-4">
             <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">
-             {product.title}
+              {product.title}
             </h2>
             <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed
@@ -92,7 +106,7 @@ const ProductDetail = () => {
                 Product Description:
               </span>
               <p className="text-gray-600 dark:text-gray-300 text-sm mt-2">
-               {product.description}
+                {product.description}
               </p>
             </div>
           </div>

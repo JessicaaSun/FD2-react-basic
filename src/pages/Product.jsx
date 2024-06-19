@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ProductCardComponent from "../components/Cards/ProductCardComponent";
 import { BASE_URL } from "../utils/baseUrl";
 import { LoadingComponent } from "../components/LoadingComponent";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Product = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -22,8 +22,8 @@ const Product = () => {
     }
   }
 
-  function handleOnClickCard(product){
-    navigate("/product-detail", {state: product})
+  function handleOnClickCard(product) {
+    navigate("/product-detail", { state: product });
   }
   useEffect(() => {
     fetchData();
@@ -34,13 +34,15 @@ const Product = () => {
         <LoadingComponent />
       ) : (
         products.map((product) => (
-          <ProductCardComponent
-            onClickCard={()=>handleOnClickCard(product)}
-            key={product.id}
-            image={product.images[0]}
-            price={product.price}
-            title={product.title}
-          />
+          <Link key={product.id} to={"/product/" + product.id}>
+            <ProductCardComponent
+              // onClickCard={()=>handleOnClickCard(product)}
+
+              image={product.images[0]}
+              price={product.price}
+              title={product.title}
+            />
+          </Link>
         ))
       )}
     </div>

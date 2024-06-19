@@ -8,6 +8,7 @@ import Product from "./pages/Product.jsx";
 import MainLayout from "./components/MainLayout.jsx";
 import Service from "./pages/Service.jsx";
 import ProductDetail from "./pages/ProductDetail.jsx";
+import Register from "./pages/Register.jsx";
 
 const router = createBrowserRouter([
   {
@@ -34,7 +35,15 @@ const router = createBrowserRouter([
         path: "/product-detail",
         element: <ProductDetail />,
       },
+      {
+        path: "/product/:id",
+        element: <ProductDetail />,
+      },
     ],
+  },
+  {
+    path: "/register",
+    element: <Register />,
   },
 ]);
 ReactDOM.createRoot(document.getElementById("root")).render(
